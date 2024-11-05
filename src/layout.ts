@@ -146,6 +146,7 @@ export default (container: HTMLElement, opts: Options) => {
   const {
     animate = false,
     bigClass = 'OT_big',
+    streamClass = "OT_stream",
     ignoreClass = 'OT_ignore',
     fixedRatioClass = 'OT_fixedRatio',
   } = opts;
@@ -170,10 +171,18 @@ export default (container: HTMLElement, opts: Options) => {
     container.querySelectorAll(`#${id}>*:not(.${ignoreClass})`),
     filterDisplayNone
   );
+
+  const streamClassElement = children.find((element) => element.classList.contains(streamClass));
+
   const elements: Element[] = children.map((element) => {
+    let isBig = element.classList.contains(bigClass);
+
+    if (streamClassElement && streamClassElement !== element) {
+      isBig = false;
+    }
     return {
       ...getChildDims(element),
-      big: element.classList.contains(bigClass),
+      big: isBig,
       fixedRatio: element.classList.contains(fixedRatioClass),
     };
   });

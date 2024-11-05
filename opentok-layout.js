@@ -730,7 +730,7 @@ exports["default"] = (function (container, opts) {
         var widthStr = width(elem);
         return widthStr ? parseInt(widthStr, 10) : 0;
     };
-    var _a = opts.animate, animate = _a === void 0 ? false : _a, _b = opts.bigClass, bigClass = _b === void 0 ? 'OT_big' : _b, _c = opts.ignoreClass, ignoreClass = _c === void 0 ? 'OT_ignore' : _c, _d = opts.fixedRatioClass, fixedRatioClass = _d === void 0 ? 'OT_fixedRatio' : _d;
+    var _a = opts.animate, animate = _a === void 0 ? false : _a, _b = opts.bigClass, bigClass = _b === void 0 ? 'OT_big' : _b, _c = opts.streamClass, streamClass = _c === void 0 ? "OT_stream" : _c, _d = opts.ignoreClass, ignoreClass = _d === void 0 ? 'OT_ignore' : _d, _e = opts.fixedRatioClass, fixedRatioClass = _e === void 0 ? 'OT_fixedRatio' : _e;
     if (css(container, 'display') === 'none') {
         return;
     }
@@ -746,8 +746,14 @@ exports["default"] = (function (container, opts) {
         - getCSSNumber(container, 'border-left')
         - getCSSNumber(container, 'border-right');
     var children = Array.prototype.filter.call(container.querySelectorAll("#".concat(id, ">*:not(.").concat(ignoreClass, ")")), filterDisplayNone);
+    var streamClassElement = children.find(function (element) { return element.classList.contains(streamClass); });
     var elements = children.map(function (element) {
-        return __assign(__assign({}, getChildDims(element)), { big: element.classList.contains(bigClass), fixedRatio: element.classList.contains(fixedRatioClass) });
+        var isBig = element.classList.contains(bigClass);
+        if (streamClassElement && streamClassElement !== element) {
+            isBig = false;
+        }
+        console.log('isBig', isBig);
+        return __assign(__assign({}, getChildDims(element)), { big: isBig, fixedRatio: element.classList.contains(fixedRatioClass) });
     });
     var layout = (0, getLayout_1["default"])(opts, elements);
     layout.boxes.forEach(function (box, idx) {

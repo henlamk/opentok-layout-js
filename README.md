@@ -1,3 +1,11 @@
+Notes to make changes: 
+- change link in the respective project's package.json to "opentok-layout-js": "../../opentok-layout-js" and run `npm install`
+- make changes in the src folder
+- change node version with "nvm use 14"
+- build project with "npx webpack"
+- test in respective project
+
+
 [![Demo of Layout Container](https://github.com/aullman/opentok-layout-js/raw/master/layout-demo.gif)](https://aullman.github.io/opentok-layout-js/ "Layout-container Demo")
 
 opentok-layout-js

@@ -9,6 +9,7 @@ declare module 'opentok-layout-js' {
     alignItems?: alignOptions;
     animate?: Animate;
     bigAlignItems?: alignOptions;
+    streamClass?: string; 
     bigClass?: string;
     bigFirst?: boolean | 'column' | 'row';
     bigFixedRatio?: boolean;
